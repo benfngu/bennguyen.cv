@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ben Nguyen</title>
+<meta name="description" content="Ben Nguyen — a high schooler in San Jose who likes finding out how things work. Immune cells, code, and a lot of questions.">
+<meta name="theme-color" content="#f6f1e7">
+<link rel="preload" href="fonts/cmu-serif-500-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/cmu-serif-700-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='%23f2917f'/%3E%3Ccircle cx='13' cy='13' r='11' fill='%23f6d56a' opacity='.7'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ============================================================
+     SHARED DEFS: watercolor + pencil filters, and every sketch
+     symbol used on the page. Paths carry pathLength="1" so the
+     draw-on animation is a single CSS rule everywhere.
+     ============================================================ -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- Watercolor wash: warped edge, dried-pigment ring, paper granulation -->
+    <filter id="wash" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.02" numOctaves="3" seed="4" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="22" xChannelSelector="R" yChannelSelector="G" result="shape"/>
+      <feGaussianBlur in="shape" stdDeviation="0.6" result="soft"/>
+      <feMorphology in="soft" operator="erode" radius="4" result="core"/>
+      <feGaussianBlur in="core" stdDeviation="4" result="coreBlur"/>
+      <feComposite in="soft" in2="coreBlur" operator="out" result="ring"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="11" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.4 0 0 0 -0.7" result="noiseA"/>
+      <feComposite in="soft" in2="noiseA" operator="in" result="grained"/>
+      <feComponentTransfer in="soft" result="base"><feFuncA type="linear" slope="0.62"/></feComponentTransfer>
+      <feComponentTransfer in="grained" result="grainL"><feFuncA type="linear" slope="0.3"/></feComponentTransfer>
+      <feComponentTransfer in="ring" result="ringL"><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+      <feMerge><feMergeNode in="base"/><feMergeNode in="grainL"/><feMergeNode in="ringL"/></feMerge>
+    </filter>
+
+    <!-- Same idea at landscape scale (sky, hills, water) -->
+    <filter id="wash-big" x="-10%" y="-30%" width="120%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.008" numOctaves="3" seed="7" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="48" xChannelSelector="R" yChannelSelector="G" result="shape"/>
+      <feGaussianBlur in="shape" stdDeviation="1.2" result="soft"/>
+      <feMorphology in="soft" operator="erode" radius="9" result="core"/>
+      <feGaussianBlur in="core" stdDeviation="9" result="coreBlur"/>
+      <feComposite in="soft" in2="coreBlur" operator="out" result="ring"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="5" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.4 0 0 0 -0.7" result="noiseA"/>
+      <feComposite in="soft" in2="noiseA" operator="in" result="grained"/>
+      <feComponentTransfer in="soft" result="base"><feFuncA type="linear" slope="0.55"/></feComponentTransfer>
+      <feComponentTransfer in="grained" result="grainL"><feFuncA type="linear" slope="0.28"/></feComponentTransfer>
+      <feComponentTransfer in="ring" result="ringL"><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+      <feMerge><feMergeNode in="base"/><feMergeNode in="grainL"/><feMergeNode in="ringL"/></feMerge>
+    </filter>
+
+    <!-- Pencil: a little hand-wobble on every contour -->
+    <filter id="pencil" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <!-- ---------- reusable parts ---------- -->
+    <path id="petal" d="M0,-5 C-7,-14 -7,-28 0,-32 C7,-28 7,-14 0,-5 Z" pathLength="1"/>
+    <path id="petal-wide" d="M0,-4 C-13,-12 -13,-30 0,-34 C13,-30 13,-12 0,-4 Z" pathLength="1"/>
+    <path id="leaf" d="M0,0 C-12,-6 -20,-2 -22,8 C-14,10 -6,8 0,0 Z" pathLength="1"/>
+
+    <!-- ---------- clouds ---------- -->
+    <symbol id="cloud-a" viewBox="0 0 200 110" overflow="visible">
+      <g class="wash cloud-body">
+        <path class="c-cloud" transform="translate(6,4)" d="M28,80 C10,80 6,58 24,52 C18,32 44,20 60,34 C66,10 106,8 114,32 C134,22 158,36 150,56 C170,58 172,84 150,86 C140,98 112,96 104,86 C92,100 60,100 52,86 C44,94 24,92 28,80 Z"/>
+      </g>
+      <g class="wash">
+        <path class="c-cloud-shadow" d="M36,86 C60,100 120,102 152,88 C140,98 112,96 104,86 C92,100 60,100 52,86 C46,92 38,92 36,86 Z"/>
+      </g>
+      <g class="line">
+        <path d="M28,80 C10,80 6,58 24,52 C18,32 44,20 60,34 C66,10 106,8 114,32 C134,22 158,36 150,56 C170,58 172,84 150,86 C140,98 112,96 104,86 C92,100 60,100 52,86 C44,94 24,92 28,80" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+    <symbol id="cloud-b" viewBox="0 0 140 90" overflow="visible">
+      <g class="wash cloud-body">
+        <path class="c-cloud" transform="translate(4,3)" d="M20,70 C4,70 4,50 20,48 C22,30 48,24 58,38 C70,18 104,22 106,44 C124,42 132,64 116,72 C106,86 80,84 72,74 C60,86 34,86 30,74 Z"/>
+      </g>
+      <g class="wash">
+        <path class="c-cloud-shadow" d="M28,74 C50,88 96,88 118,72 C106,86 80,84 72,74 C60,86 34,86 30,74 Z"/>
+      </g>
+      <g class="line">
+        <path d="M20,70 C4,70 4,50 20,48 C22,30 48,24 58,38 C70,18 104,22 106,44 C124,42 132,64 116,72 C106,86 80,84 72,74 C60,86 34,86 30,74" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    <!-- ---------- sun ---------- -->
+    <symbol id="sun" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash"><circle class="c-butter" cx="64" cy="58" r="38"/></g>
+      <g class="line">
+        <circle cx="60" cy="60" r="34" pathLength="1" class="partial"/>
+        <path d="M60,8 L60,18 M60,102 L60,112 M8,60 L18,60 M102,60 L112,60 M23,23 L30,30 M97,23 L90,30 M23,97 L30,90" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <!-- ---------- flowers (origin at the foot of the stem) ---------- -->
+    <symbol id="f-daisy" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash" transform="translate(3,2)">
+        <g class="c-pink" transform="translate(0,-64)">
+          <use href="#petal"/><use href="#petal" transform="rotate(45)"/><use href="#petal" transform="rotate(90)"/><use href="#petal" transform="rotate(135)"/>
+          <use href="#petal" transform="rotate(180)"/><use href="#petal" transform="rotate(225)"/><use href="#petal" transform="rotate(270)"/><use href="#petal" transform="rotate(315)"/>
+        </g>
+        <circle class="c-butter" cx="0" cy="-64" r="8"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-28)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C3,-18 -3,-38 0,-56" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-28)"/>
+        <g transform="translate(0,-64)">
+          <use href="#petal"/><use href="#petal" transform="rotate(45)"/><use href="#petal" transform="rotate(90)"/><use href="#petal" transform="rotate(135)"/>
+          <use href="#petal" transform="rotate(180)"/><use href="#petal" transform="rotate(225)"/><use href="#petal" transform="rotate(270)"/><use href="#petal" transform="rotate(315)"/>
+        </g>
+        <circle cx="0" cy="-64" r="6" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    <symbol id="f-tulip" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash" transform="translate(3,3)">
+        <path class="c-coral" d="M-13,-56 C-16,-74 -9,-84 0,-92 C9,-84 16,-74 13,-56 C6,-50 -6,-50 -13,-56 Z"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-22) scale(-1,1)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C-3,-18 3,-36 0,-52" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-22) scale(-1,1)"/>
+        <path d="M-13,-56 C-16,-74 -9,-84 0,-92 C9,-84 16,-74 13,-56 C6,-50 -6,-50 -13,-56 Z" pathLength="1"/>
+        <path d="M-4,-54 C-7,-70 -3,-82 0,-88 M4,-54 C7,-70 3,-82 0,-88" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <symbol id="f-bell" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash" transform="translate(3,2)">
+        <path class="c-lavender" d="M-4,-70 C-8,-62 -8,-52 -1,-46 L11,-46 C18,-52 18,-62 14,-70 Z"/>
+        <path class="c-lavender" d="M-20,-52 C-24,-46 -24,-38 -18,-34 L-9,-34 C-3,-38 -3,-46 -7,-52 Z"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-16)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C2,-24 -4,-50 6,-72" pathLength="1"/>
+        <path d="M2,-50 C-4,-52 -10,-52 -14,-56" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-16)"/>
+        <path d="M-4,-70 C-8,-62 -8,-52 -1,-46 L11,-46 C18,-52 18,-62 14,-70" pathLength="1"/>
+        <path d="M-20,-52 C-24,-46 -24,-38 -18,-34 L-9,-34 C-3,-38 -3,-46 -7,-52" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <symbol id="f-poppy" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash" transform="translate(4,2)">
+        <g class="c-coral" transform="translate(0,-66)">
+          <use href="#petal-wide"/><use href="#petal-wide" transform="rotate(90)"/><use href="#petal-wide" transform="rotate(180)"/><use href="#petal-wide" transform="rotate(270)"/>
+        </g>
+        <circle class="c-ink" cx="0" cy="-66" r="5"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-30) scale(-1,1)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C4,-16 -4,-40 0,-58" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-30) scale(-1,1)"/>
+        <g transform="translate(0,-66)">
+          <use href="#petal-wide"/><use href="#petal-wide" transform="rotate(90)"/><use href="#petal-wide" transform="rotate(180)"/><use href="#petal-wide" transform="rotate(270)"/>
+        </g>
+      </g>
+    </symbol>
+
+    <symbol id="f-lavender" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash c-lavender" transform="translate(3,2)">
+        <ellipse cx="-5" cy="-88" rx="6" ry="4"/><ellipse cx="5" cy="-82" rx="6" ry="4"/>
+        <ellipse cx="-6" cy="-76" rx="6" ry="4"/><ellipse cx="5" cy="-70" rx="6" ry="4"/>
+        <ellipse cx="-5" cy="-64" rx="6" ry="4"/><ellipse cx="4" cy="-58" rx="6" ry="4"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-26)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C2,-30 -2,-60 0,-92" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-26)"/>
+        <path d="M-8,-86 L-2,-90 M-8,-74 L-2,-78 M-8,-62 L-2,-66 M2,-80 L8,-84 M2,-68 L8,-72 M2,-56 L8,-60" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <!-- ---------- sketches for cards ---------- -->
+    <!-- specimen jar with a cell inside -->
+    <symbol id="s-jar" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-water" transform="translate(4,3)" d="M30,52 L30,100 C30,108 40,110 60,110 C80,110 90,108 90,100 L90,52 Z"/>
+        <circle class="c-pink" cx="62" cy="80" r="15"/>
+      </g>
+      <g class="line">
+        <path d="M34,26 L86,26 M32,26 C32,40 30,44 30,48 L30,102 C30,110 40,112 60,112 C80,112 90,110 90,102 L90,48 C90,44 88,40 88,26" pathLength="1"/>
+        <path d="M36,18 L84,18 L84,26 L36,26 Z" pathLength="1"/>
+        <path d="M32,52 C48,48 72,48 88,52" pathLength="1" class="partial"/>
+        <circle cx="60" cy="80" r="13" pathLength="1"/>
+        <path d="M48,72 L43,67 M72,72 L77,67 M48,88 L43,93 M72,88 L77,93 M60,67 L60,61 M60,93 L60,99" pathLength="1"/>
+        <circle cx="60" cy="80" r="4" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <!-- mountain with a flag: the competition -->
+    <symbol id="s-summit" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-moss" transform="translate(4,3)" d="M8,108 L46,40 L60,60 L74,34 L114,108 Z"/>
+        <path class="c-paper" transform="translate(4,3)" d="M64,50 L74,34 L86,56 L78,52 L72,60 Z"/>
+        <path class="c-coral" transform="translate(3,2)" d="M74,14 L96,20 L74,28 Z"/>
+      </g>
+      <g class="line">
+        <path d="M6,108 L46,40 L60,60 L74,34 L114,108" pathLength="1"/>
+        <path d="M74,34 L74,12 L96,19 L74,26" pathLength="1"/>
+        <path d="M62,52 L68,58 L72,50 L78,56 L84,50" pathLength="1" class="partial"/>
+        <path d="M6,108 C30,104 90,104 114,108" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    <!-- brain with a sprout -->
+    <symbol id="s-brain" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-pink" transform="translate(4,3)" d="M30,80 C14,78 12,56 24,48 C18,32 38,22 52,32 C58,20 84,20 88,34 C104,34 108,58 96,66 C102,84 84,92 72,84 C64,94 44,94 40,84 C36,86 30,84 30,80 Z"/>
+        <path class="c-leaf" transform="translate(3,2)" d="M60,26 C56,14 62,6 70,4 C72,14 66,22 60,26 Z"/>
+      </g>
+      <g class="line">
+        <path d="M30,80 C14,78 12,56 24,48 C18,32 38,22 52,32 C58,20 84,20 88,34 C104,34 108,58 96,66 C102,84 84,92 72,84 C64,94 44,94 40,84 C36,86 30,84 30,80 Z" pathLength="1"/>
+        <path d="M58,32 C56,48 60,62 54,84 M40,50 C48,52 52,60 46,70 M74,44 C68,54 72,64 82,70 M64,54 C74,52 80,56 84,60" pathLength="1" class="partial"/>
+        <path d="M60,30 C58,18 62,8 70,4 C72,14 66,22 60,30" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <!-- cell under a magnifying glass -->
+    <symbol id="s-lens" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <circle class="c-sky" transform="translate(3,3)" cx="50" cy="50" r="34"/>
+        <circle class="c-pink" transform="translate(2,2)" cx="50" cy="50" r="16"/>
+        <path class="c-sienna" transform="translate(3,2)" d="M76,72 L106,102 L100,108 L70,78 Z"/>
+      </g>
+      <g class="line">
+        <circle cx="50" cy="50" r="34" pathLength="1"/>
+        <circle cx="50" cy="50" r="38" pathLength="1" class="partial"/>
+        <path d="M78,74 L108,104 M74,78 L104,108" pathLength="1"/>
+        <circle cx="50" cy="50" r="15" pathLength="1"/>
+        <path d="M37,40 L31,34 M63,40 L69,34 M37,60 L31,66 M63,60 L69,66 M50,35 L50,28 M50,65 L50,72" pathLength="1"/>
+        <circle cx="50" cy="50" r="5" pathLength="1"/>
+        <path d="M28,28 C32,24 36,22 40,20" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    <!-- chess knight -->
+    <symbol id="s-knight" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-sienna" transform="translate(4,3)" d="M34,104 L86,104 L86,96 C74,92 76,80 82,68 C90,52 84,36 68,26 C64,20 60,14 56,10 L52,20 L38,26 C30,34 28,46 34,56 L46,52 C48,62 40,72 34,84 Z"/>
+      </g>
+      <g class="line">
+        <path d="M34,104 L86,104 L86,96 C74,92 76,80 82,68 C90,52 84,36 68,26 C64,20 60,14 56,10 L52,20 L38,26 C30,34 28,46 34,56 L46,52 C48,62 40,72 34,84 Z" pathLength="1"/>
+        <path d="M30,104 L90,104 L90,112 L30,112 Z" pathLength="1"/>
+        <circle cx="52" cy="32" r="2" pathLength="1"/>
+        <path d="M44,40 C48,44 52,46 58,44" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    <!-- notebook with a check -->
+    <symbol id="s-notebook" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-butter" transform="translate(4,3)" d="M30,18 L92,14 L96,104 L34,108 Z"/>
+        <path class="c-leaf" transform="translate(3,2)" d="M50,66 L60,78 L82,48 L86,54 L60,88 L44,72 Z"/>
+      </g>
+      <g class="line">
+        <path d="M30,18 L92,14 L96,104 L34,108 Z" pathLength="1"/>
+        <path d="M28,28 L36,28 M28,44 L36,44 M28,60 L36,60 M28,76 L36,76 M28,92 L36,92" pathLength="1"/>
+        <path d="M48,34 L80,32 M48,46 L74,44" pathLength="1" class="partial"/>
+        <path d="M48,68 L60,80 L84,50" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <!-- small doodles for the "off the page" row -->
+    <symbol id="d-belt" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-ink" transform="translate(3,2)" d="M6,30 C30,26 50,36 60,34 C70,32 90,26 114,30 L114,46 C90,42 70,50 60,48 C50,46 30,40 6,46 Z"/></g>
+      <g class="line">
+        <path d="M6,30 C30,26 50,36 60,34 C70,32 90,26 114,30 L114,46 C90,42 70,50 60,48 C50,46 30,40 6,46 Z" pathLength="1"/>
+        <path d="M52,32 C56,40 64,42 68,34 M54,46 C50,58 44,66 40,72 M66,46 C70,58 76,66 82,72" pathLength="1"/>
+      </g>
+    </symbol>
+    <symbol id="d-whistle" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-sienna" transform="translate(3,2)" d="M30,40 C30,26 42,18 54,20 L98,20 L98,36 L64,40 C62,54 48,62 36,56 C30,52 30,46 30,40 Z"/></g>
+      <g class="line">
+        <path d="M30,40 C30,26 42,18 54,20 L98,20 L98,36 L64,40 C62,54 48,62 36,56 C30,52 30,46 30,40 Z" pathLength="1"/>
+        <circle cx="46" cy="40" r="6" pathLength="1"/>
+        <path d="M100,12 C106,10 110,10 116,12 M100,44 C106,46 110,46 116,44" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+    <symbol id="d-gi" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-paper" transform="translate(3,2)" d="M40,10 L60,26 L80,10 L104,20 L98,44 L88,42 L88,74 L32,74 L32,42 L22,44 L16,20 Z"/><path class="c-coral" transform="translate(3,2)" d="M32,60 L88,60 L88,68 L32,68 Z"/></g>
+      <g class="line">
+        <path d="M40,10 L60,26 L80,10 L104,20 L98,44 L88,42 L88,74 L32,74 L32,42 L22,44 L16,20 Z" pathLength="1"/>
+        <path d="M40,10 L60,50 L80,10" pathLength="1" class="partial"/>
+        <path d="M32,60 L88,60 M32,68 L88,68" pathLength="1"/>
+      </g>
+    </symbol>
+    <symbol id="d-lantern" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-coral" transform="translate(3,2)" d="M60,8 C86,8 98,24 98,40 C98,56 86,72 60,72 C34,72 22,56 22,40 C22,24 34,8 60,8 Z"/></g>
+      <g class="line">
+        <path d="M60,8 C86,8 98,24 98,40 C98,56 86,72 60,72 C34,72 22,56 22,40 C22,24 34,8 60,8 Z" pathLength="1"/>
+        <path d="M44,10 C36,30 36,50 44,70 M76,10 C84,30 84,50 76,70 M60,8 L60,72" pathLength="1" class="partial"/>
+        <path d="M50,6 L70,6 M50,74 L70,74 M60,74 L60,80" pathLength="1"/>
+      </g>
+    </symbol>
+    <symbol id="d-book" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-sky" transform="translate(3,2)" d="M14,16 C30,10 46,12 60,20 C74,12 90,10 106,16 L106,66 C90,60 74,62 60,70 C46,62 30,60 14,66 Z"/></g>
+      <g class="line">
+        <path d="M14,16 C30,10 46,12 60,20 C74,12 90,10 106,16 L106,66 C90,60 74,62 60,70 C46,62 30,60 14,66 Z" pathLength="1"/>
+        <path d="M60,20 L60,70" pathLength="1"/>
+        <path d="M24,28 C34,24 44,26 52,30 M24,40 C34,36 44,38 52,42 M68,30 C76,26 86,24 96,28" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    <!-- paper boat -->
+    <symbol id="s-boat" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash">
+        <path class="c-paper" transform="translate(3,2)" d="M10,44 L110,44 L88,70 L32,70 Z"/>
+        <path class="c-butter" transform="translate(3,2)" d="M60,8 L60,44 L96,44 Z"/>
+        <path class="c-paper" transform="translate(3,2)" d="M60,8 L60,44 L24,44 Z"/>
+      </g>
+      <g class="line">
+        <path d="M10,44 L110,44 L88,70 L32,70 Z" pathLength="1"/>
+        <path d="M24,44 L60,8 L96,44 M60,8 L60,44" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <!-- paper plane (the little traveler) -->
+    <symbol id="s-plane" viewBox="0 0 60 40" overflow="visible">
+      <g class="wash"><path class="c-butter" transform="translate(2,1)" d="M2,20 L56,4 L38,36 L26,24 Z"/></g>
+      <g class="line">
+        <path d="M2,20 L56,4 L38,36 L26,24 Z M2,20 L26,24 M26,24 L56,4" pathLength="1"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- paper grain + wet paint layer + the traveling plane -->
+<div class="grain" aria-hidden="true"></div>
+<canvas id="paint" aria-hidden="true"></canvas>
+<svg id="plane-layer" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
+  <path id="plane-path" d="M-6,14 C20,10 24,30 38,26 C58,20 52,44 46,52 C40,60 70,58 82,66 C96,74 84,90 108,92" fill="none"/>
+</svg>
+<div id="plane" aria-hidden="true"><svg viewBox="0 0 60 40"><use href="#s-plane"/></svg></div>
+
+<header class="nav" id="top">
+  <a class="nav-home" href="#sky">ben</a>
+  <nav aria-label="Sections">
+    <a href="#wonder">wonder</a>
+    <a href="#notes">notes</a>
+    <a href="#making">making</a>
+    <a href="#hi">say hi</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ===================== SKY ===================== -->
+  <section id="sky" class="sky" data-reveal>
+    <svg class="sky-wash" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="skyGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="300">
+          <stop offset="0" stop-color="#6f9fc4"/>
+          <stop offset=".45" stop-color="#a9cce0"/>
+          <stop offset="1" stop-color="#a9cce0" stop-opacity=".45"/>
+        </linearGradient>
+      </defs>
+      <g class="wash" filter="url(#wash-big)">
+        <path fill="url(#skyGrad)" d="M-40,-40 L1480,-40 L1480,230 C1200,290 980,200 720,250 C460,300 220,220 -40,280 Z"/>
+      </g>
+    </svg>
+
+    <div class="sun"><svg viewBox="0 0 120 120"><use href="#sun"/></svg></div>
+    <svg class="birds" viewBox="0 0 160 60" aria-hidden="true">
+      <g class="line">
+        <path d="M10,30 C16,22 22,22 28,30 C34,22 40,22 46,30" pathLength="1" class="partial"/>
+        <path d="M70,14 C75,8 80,8 85,14 C90,8 95,8 100,14" pathLength="1" class="partial"/>
+        <path d="M110,40 C114,35 118,35 122,40 C126,35 130,35 134,40" pathLength="1" class="partial"/>
+      </g>
+    </svg>
+
+    <div class="cloud cloud-1"><svg viewBox="0 0 200 110"><use href="#cloud-a"/></svg></div>
+    <div class="cloud cloud-2"><svg viewBox="0 0 140 90"><use href="#cloud-b"/></svg></div>
+    <div class="cloud cloud-3"><svg viewBox="0 0 200 110"><use href="#cloud-a"/></svg></div>
+    <div class="cloud cloud-4"><svg viewBox="0 0 140 90"><use href="#cloud-b"/></svg></div>
+
+    <div class="hero">
+      <p class="scribble hello">hi, I'm</p>
+      <h1 class="name" aria-label="Ben Nguyen">
+        <span>B</span><span>e</span><span>n</span><span class="sp"> </span><span>N</span><span>g</span><span>u</span><span>y</span><span>e</span><span>n</span>
+      </h1>
+      <p class="tagline">I like finding out how things work.</p>
+      <p class="scribble where">a high schooler in San Jose &middot; immune cells, code, and a lot of questions</p>
+    </div>
+
+    <a class="cue" href="#wonder">
+      <span>keep going</span>
+      <svg viewBox="0 0 40 60" aria-hidden="true"><path class="line" d="M20,4 C16,20 24,34 20,52 M10,42 C14,46 18,50 20,54 C22,50 26,46 30,42" pathLength="1"/></svg>
+    </a>
+
+    <svg class="hills" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <g class="wash" filter="url(#wash-big)">
+        <path class="c-moss" d="M-40,170 C220,110 430,210 720,160 C1010,110 1230,200 1480,140 L1480,360 L-40,360 Z"/>
+        <path class="c-leaf" d="M-40,240 C260,190 520,280 820,230 C1080,190 1300,260 1480,210 L1480,360 L-40,360 Z"/>
+      </g>
+      <g class="line">
+        <path d="M-40,240 C260,190 520,280 820,230 C1080,190 1300,260 1480,210" pathLength="1" class="partial"/>
+      </g>
+    </svg>
+  </section>
+
+  <!-- ===================== WONDER ===================== -->
+  <section id="wonder" class="meadow" data-reveal>
+    <header class="sec-head">
+      <h2>things I wonder about</h2>
+      <p class="scribble">(tap a flower)</p>
+    </header>
+
+    <div class="field">
+      <button class="flower" style="--x:8%;  --s:1.05; --d:0.0s" aria-expanded="false">
+        <svg viewBox="0 0 80 110"><use href="#f-daisy"/></svg>
+        <span class="note"><b>Why do 1 in 10 CAR-T batches fail?</b><small>so I designed a way to catch a bad batch early (see &sect;3)</small></span>
+      </button>
+      <button class="flower" style="--x:24%; --s:0.9; --d:0.15s" aria-expanded="false">
+        <svg viewBox="0 0 80 110"><use href="#f-tulip"/></svg>
+        <span class="note"><b>What makes a T cell tired?</b><small>exhaustion, metabolism, and why a cell's fitness matters long before it meets a tumor</small></span>
+      </button>
+      <button class="flower" style="--x:40%; --s:1.05; --d:0.3s" aria-expanded="false">
+        <svg viewBox="0 0 80 110"><use href="#f-bell"/></svg>
+        <span class="note"><b>Which genes make an immune cell brave?</b><small>CRISPR screens ask exactly this. I curate them into FITdb at the La Jolla Institute for Immunology</small></span>
+      </button>
+      <button class="flower" style="--x:56%; --s:1.1; --d:0.45s" aria-expanded="false">
+        <svg viewBox="0 0 80 110"><use href="#f-poppy"/></svg>
+        <span class="note"><b>Can an AI be a good teammate?</b><small>we're building a Bughouse chess engine that plays <em>with</em> a human, not instead of one</small></span>
+      </button>
+      <button class="flower" style="--x:72%; --s:0.95; --d:0.6s" aria-expanded="false">
+        <svg viewBox="0 0 80 110"><use href="#f-lavender"/></svg>
+        <span class="note"><b>How do you teach a kid to fall safely?</b><small>gently, and many times over. I coach youth judo</small></span>
+      </button>
+      <button class="flower" style="--x:88%; --s:0.85; --d:0.75s" aria-expanded="false">
+        <svg viewBox="0 0 80 110"><use href="#f-daisy"/></svg>
+        <span class="note"><b>How many papers is <em>a lot</em> of papers?</b><small>at ThinkNeuro I learned to measure a literature with R (bibliometrics)</small></span>
+      </button>
+
+      <div class="butterfly" aria-hidden="true">
+        <svg viewBox="-30 -24 60 48">
+          <g class="wing wing-l"><g class="wash"><path class="c-butter" transform="translate(2,1)" d="M-2,0 C-10,-22 -30,-20 -26,-6 C-28,6 -14,12 -2,2 Z"/></g><g class="line"><path d="M-2,0 C-10,-22 -30,-20 -26,-6 C-28,6 -14,12 -2,2" pathLength="1"/></g></g>
+          <g class="wing wing-r"><g class="wash"><path class="c-butter" transform="translate(2,1)" d="M2,0 C10,-22 30,-20 26,-6 C28,6 14,12 2,2 Z"/></g><g class="line"><path d="M2,0 C10,-22 30,-20 26,-6 C28,6 14,12 2,2" pathLength="1"/></g></g>
+          <g class="line"><path d="M0,-6 L0,8 M0,-6 C-3,-10 -5,-12 -7,-14 M0,-6 C3,-10 5,-12 7,-14" pathLength="1"/></g>
+        </svg>
+      </div>
+      <svg class="ground" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">
+        <g class="wash" filter="url(#wash-big)">
+          <path class="c-leaf" d="M-40,60 C300,30 700,80 1100,50 C1300,30 1400,60 1480,50 L1480,125 C1200,150 800,115 400,140 C200,152 60,135 -40,145 Z"/>
+        </g>
+        <g class="line">
+          <path d="M-40,60 C300,30 700,80 1100,50 C1300,30 1400,60 1480,50" pathLength="1" class="partial" vector-effect="non-scaling-stroke"/>
+          <path d="M140,54 l-4,-16 M150,52 l3,-14 M420,66 l-3,-14 M430,64 l4,-12 M700,78 l-5,-15 M712,76 l2,-16 M980,58 l-4,-14 M990,56 l4,-12 M1260,44 l-3,-15 M1270,44 l4,-13" pathLength="1" vector-effect="non-scaling-stroke"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===================== FIELD NOTES ===================== -->
+  <section id="notes" class="river-sec" data-reveal>
+    <header class="sec-head">
+      <h2>field notes</h2>
+      <p class="scribble">where I've been so far</p>
+    </header>
+
+    <div class="river">
+      <svg class="river-svg" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+        <path class="river-wash" d="M50,-20 C30,120 80,220 50,340 C20,460 80,560 50,680 C20,800 80,900 50,1020" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <svg class="river-svg river-svg-line" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+        <path class="river-line line partial" d="M50,-20 C30,120 80,220 50,340 C20,460 80,560 50,680 C20,800 80,900 50,1020" pathLength="1" vector-effect="non-scaling-stroke"/>
+      </svg>
+
+      <ol class="stops">
+        <li class="stop" data-reveal>
+          <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-jar"/></svg></div>
+          <div class="card">
+            <p class="scribble when">2026 &rarr; now</p>
+            <h3>Reina Lab, La Jolla Institute for Immunology</h3>
+            <p class="role">research contributor &middot; remote</p>
+            <p>I curate published CRISPR screens into FITdb: re-running each through MAGeCK, mapping mouse genes to human, and writing notebooks that check their own work.</p>
+          </div>
+        </li>
+        <li class="stop" data-reveal>
+          <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-summit"/></svg><span class="stamp stamp-first">1st</span></div>
+          <div class="card">
+            <p class="scribble when">Jan &ndash; Apr 2026</p>
+            <h3>UC Berkeley BioEHSC</h3>
+            <p class="role">project lead &amp; biology</p>
+            <p>Five friends, seven weeks, one question: how do you spot a failing CAR-T batch before it fails? First place in Bioengineering, out of 80+ teams.</p>
+          </div>
+        </li>
+        <li class="stop" data-reveal>
+          <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-brain"/></svg></div>
+          <div class="card">
+            <p class="scribble when">Feb &ndash; Apr 2026</p>
+            <h3>ThinkNeuro</h3>
+            <p class="role">research intern &middot; remote</p>
+            <p>Ten weeks of R and bibliometrics on a neural-circuit meta-analysis, presented to faculty from Harvard, Stanford, and USC.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== MAKING ===================== -->
+  <section id="making" class="making" data-reveal>
+    <header class="sec-head">
+      <h2>things I'm making</h2>
+      <p class="scribble">works in progress, taped in</p>
+    </header>
+
+    <div class="sheets">
+      <article class="sheet" style="--tilt:-1.4deg" data-reveal>
+        <span class="tape" aria-hidden="true"></span>
+        <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-lens"/></svg></div>
+        <p class="scribble label">first-author manuscript &middot; in prep for <em>Frontiers in Immunology</em></p>
+        <h3>Catching bad CAR&#8209;T batches early</h3>
+        <p>Shine Raman light on the cells, train against metabolic ground truth, and let the model say <em>pass</em>, <em>adjust</em>, or <em>flag</em> &mdash; before the batch is finished and the money is spent.</p>
+        <div class="stamps" aria-hidden="true">
+          <span class="stamp stamp-pass">PASS</span>
+          <span class="stamp stamp-adjust">ADJUST</span>
+          <span class="stamp stamp-flag">FLAG</span>
+        </div>
+      </article>
+
+      <article class="sheet" style="--tilt:1.1deg" data-reveal>
+        <span class="tape" aria-hidden="true"></span>
+        <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-knight"/></svg></div>
+        <p class="scribble label">Bughouse chess &middot; Python + PyTorch &middot; with a classmate, PhD-mentored</p>
+        <h3>A chess engine that plays <em>with</em> you</h3>
+        <p>One board for the AI, one for its human partner. It has to guess what you'll do next &mdash; and forgive what you just did.</p>
+      </article>
+
+      <article class="sheet" style="--tilt:-0.6deg" data-reveal>
+        <span class="tape" aria-hidden="true"></span>
+        <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-notebook"/></svg></div>
+        <p class="scribble label">FITdb curation &middot; MAGeCK &middot; Scanpy</p>
+        <h3>Notebooks that check themselves</h3>
+        <p>Every screen I curate ships with its own QC gates and a SHA-256 of every input, so the result reproduces exactly &mdash; or refuses to.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== OFF THE PAGE ===================== -->
+  <section id="also" class="also" data-reveal>
+    <header class="sec-head">
+      <h2>off the page</h2>
+    </header>
+    <ul class="doodles">
+      <li><svg viewBox="0 0 120 80"><use href="#d-belt"/></svg><span>judo instructor &amp; youth coach</span></li>
+      <li><svg viewBox="0 0 120 80"><use href="#d-whistle"/></svg><span>captain, varsity wrestling</span></li>
+      <li><svg viewBox="0 0 120 80"><use href="#d-gi"/></svg><span>founded the martial arts club</span></li>
+      <li><svg viewBox="0 0 120 80"><use href="#d-lantern"/></svg><span>officer, Vietnamese Student Association</span></li>
+      <li><svg viewBox="0 0 120 80"><use href="#d-book"/></svg><span>dual-enrolled at West Valley College</span></li>
+    </ul>
+  </section>
+
+  <!-- ===================== SAY HI ===================== -->
+  <section id="hi" class="pond" data-reveal>
+    <header class="sec-head">
+      <h2>say hi</h2>
+      <p class="lead">If you're curious about the same things &mdash; or completely different ones &mdash; write me.</p>
+    </header>
+
+    <ul class="links">
+      <li><a href="mailto:benguyen1247@gmail.com"><span class="scribble">email</span>benguyen1247@gmail.com</a></li>
+      <li><a href="https://linkedin.com/in/benfnguyen" rel="me noopener" target="_blank"><span class="scribble">linkedin</span>in/benfnguyen</a></li>
+      <li><a href="https://github.com/yshms" rel="me noopener" target="_blank"><span class="scribble">github</span>yshms</a></li>
+    </ul>
+
+    <div class="water">
+      <div class="boat"><svg viewBox="0 0 120 80"><use href="#s-boat"/></svg></div>
+      <svg class="water-svg" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <g class="wash" filter="url(#wash-big)">
+          <path class="c-water" d="M-40,90 C200,60 400,120 720,90 C1040,60 1240,120 1480,90 L1480,300 L-40,300 Z"/>
+          <path class="c-water-deep" opacity=".6" d="M-40,170 C240,140 480,200 720,170 C960,140 1200,200 1480,170 L1480,300 L-40,300 Z"/>
+        </g>
+        <g class="line">
+          <path d="M120,150 C200,140 280,160 360,150 M900,190 C960,182 1020,196 1080,190 M300,230 C340,224 380,236 420,230" pathLength="1" class="partial"/>
+          <path d="M560,120 C640,112 700,128 780,120" pathLength="1" class="partial"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Ben Nguyen &middot; San Jose, CA &middot; 2026</p>
+  <p class="scribble">drawn in SVG, painted with code &middot; set in Computer Modern</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
