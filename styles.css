@@ -481,13 +481,23 @@ section > .sec-head { position: relative; z-index: 2; }
   .stamp-first { right: -8px; }
 }
 @media (max-width: 720px) {
+  /* ---- mobile performance: no per-frame filter work, no plane, calmer sky ---- */
+  .line { filter: none; }                      /* pencil wobble is invisible at this size and costly to recompute */
+  #plane-layer, #plane { display: none; }      /* trail crossed text on narrow screens; plane JS skipped too */
+  .sun { animation: none; }
+  .grain { opacity: .4; }
+  .cloud-1 { top: 4%;  width: 150px; }
+  .cloud-2 { top: 13%; width: 110px; }
+  .cloud-3 { top: 21%; width: 120px; }
+  .cloud-4 { top: 2%;  width: 90px; }
+
   body { font-size: 1.05rem; }
   .nav nav { gap: .8rem; font-size: 1rem; }
   .field {
     height: auto; padding-bottom: 46px;
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem .5rem; align-items: end;
   }
-  .butterfly { top: -20px; left: 0; width: 34px; }
+  .butterfly { top: 90px; left: 0; width: 34px; }
   .birds { top: 16%; left: 30%; }
   .flower {
     position: relative; left: auto; bottom: auto; transform: none;

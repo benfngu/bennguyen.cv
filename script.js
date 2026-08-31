@@ -40,8 +40,10 @@
     const r = riverSec.getBoundingClientRect();
     const vh = window.innerHeight;
     // 0 when the section top reaches the bottom of the viewport, 1 when its bottom passes ~70% up
-    const p = (vh - r.top) / (r.height + vh * 0.7);
-    riverSvg.style.setProperty("--river", Math.min(1, Math.max(0, p)).toFixed(3));
+    const p = Math.round(Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh * 0.7))) * 50) / 50;
+    if (p === updateRiver.last) return;          // quantized: repaint ~50 times total, not every frame
+    updateRiver.last = p;
+    riverSvg.style.setProperty("--river", p);
   };
 
   /* ---------- 3. paper plane ---------- */
@@ -49,7 +51,8 @@
   const planePath = document.getElementById("plane-path");
   const plane = document.getElementById("plane");
   let planeLen = 0, planeTarget = 0, planeNow = 0, planeRaf = 0;
-  if (planePath && plane && !reduced) {
+  const wantPlane = window.matchMedia("(min-width: 721px)").matches;
+  if (planePath && plane && !reduced && wantPlane) {
     planeLen = planePath.getTotalLength();
     const place = (p) => {
       const vw = window.innerWidth, vh = window.innerHeight;
