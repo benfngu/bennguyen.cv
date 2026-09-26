@@ -1,0 +1,329 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><style>.wash {filter:url(#wash); opacity:.9;} .line,.line * {fill:none;stroke:#6b655e;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;} .line{filter:url(#pencil);} .c-butter{fill:#f5d565}.c-cloud{fill:#fdfbf6}.c-cloud-shadow{fill:#b7bfd0}.c-leaf{fill:#a3c58f}.c-moss{fill:#c2c37c}.c-pink{fill:#f3b5c3}.c-coral{fill:#f08a78}.c-lavender{fill:#b6add6}.c-water{fill:#7dbcc3}.c-paper{fill:white}</style>  <defs>
+    
+    <filter id="wash" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014 0.02" numOctaves="3" seed="4" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="22" xChannelSelector="R" yChannelSelector="G" result="shape"/>
+      <feGaussianBlur in="shape" stdDeviation="0.6" result="soft"/>
+      <feMorphology in="soft" operator="erode" radius="4" result="core"/>
+      <feGaussianBlur in="core" stdDeviation="4" result="coreBlur"/>
+      <feComposite in="soft" in2="coreBlur" operator="out" result="ring"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="11" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.4 0 0 0 -0.7" result="noiseA"/>
+      <feComposite in="soft" in2="noiseA" operator="in" result="grained"/>
+      <feComponentTransfer in="soft" result="base"><feFuncA type="linear" slope="0.62"/></feComponentTransfer>
+      <feComponentTransfer in="grained" result="grainL"><feFuncA type="linear" slope="0.3"/></feComponentTransfer>
+      <feComponentTransfer in="ring" result="ringL"><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+      <feMerge><feMergeNode in="base"/><feMergeNode in="grainL"/><feMergeNode in="ringL"/></feMerge>
+    </filter>
+
+    
+    <filter id="wash-big" x="-10%" y="-30%" width="120%" height="160%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.008" numOctaves="3" seed="7" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="48" xChannelSelector="R" yChannelSelector="G" result="shape"/>
+      <feGaussianBlur in="shape" stdDeviation="1.2" result="soft"/>
+      <feMorphology in="soft" operator="erode" radius="9" result="core"/>
+      <feGaussianBlur in="core" stdDeviation="9" result="coreBlur"/>
+      <feComposite in="soft" in2="coreBlur" operator="out" result="ring"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="5" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.4 0 0 0 -0.7" result="noiseA"/>
+      <feComposite in="soft" in2="noiseA" operator="in" result="grained"/>
+      <feComponentTransfer in="soft" result="base"><feFuncA type="linear" slope="0.55"/></feComponentTransfer>
+      <feComponentTransfer in="grained" result="grainL"><feFuncA type="linear" slope="0.28"/></feComponentTransfer>
+      <feComponentTransfer in="ring" result="ringL"><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+      <feMerge><feMergeNode in="base"/><feMergeNode in="grainL"/><feMergeNode in="ringL"/></feMerge>
+    </filter>
+
+    
+    <filter id="pencil" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    
+    <path id="petal" d="M0,-5 C-7,-14 -7,-28 0,-32 C7,-28 7,-14 0,-5 Z" pathLength="1"/>
+    <path id="petal-wide" d="M0,-4 C-13,-12 -13,-30 0,-34 C13,-30 13,-12 0,-4 Z" pathLength="1"/>
+    <path id="leaf" d="M0,0 C-12,-6 -20,-2 -22,8 C-14,10 -6,8 0,0 Z" pathLength="1"/>
+
+    
+    <symbol id="cloud-a" viewBox="0 0 200 110" overflow="visible">
+      <g class="wash cloud-body">
+        <path class="c-cloud" transform="translate(6,4)" d="M28,80 C10,80 6,58 24,52 C18,32 44,20 60,34 C66,10 106,8 114,32 C134,22 158,36 150,56 C170,58 172,84 150,86 C140,98 112,96 104,86 C92,100 60,100 52,86 C44,94 24,92 28,80 Z"/>
+      </g>
+      <g class="wash">
+        <path class="c-cloud-shadow" d="M36,86 C60,100 120,102 152,88 C140,98 112,96 104,86 C92,100 60,100 52,86 C46,92 38,92 36,86 Z"/>
+      </g>
+      <g class="line">
+        <path d="M28,80 C10,80 6,58 24,52 C18,32 44,20 60,34 C66,10 106,8 114,32 C134,22 158,36 150,56 C170,58 172,84 150,86 C140,98 112,96 104,86 C92,100 60,100 52,86 C44,94 24,92 28,80" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+    <symbol id="cloud-b" viewBox="0 0 140 90" overflow="visible">
+      <g class="wash cloud-body">
+        <path class="c-cloud" transform="translate(4,3)" d="M20,70 C4,70 4,50 20,48 C22,30 48,24 58,38 C70,18 104,22 106,44 C124,42 132,64 116,72 C106,86 80,84 72,74 C60,86 34,86 30,74 Z"/>
+      </g>
+      <g class="wash">
+        <path class="c-cloud-shadow" d="M28,74 C50,88 96,88 118,72 C106,86 80,84 72,74 C60,86 34,86 30,74 Z"/>
+      </g>
+      <g class="line">
+        <path d="M20,70 C4,70 4,50 20,48 C22,30 48,24 58,38 C70,18 104,22 106,44 C124,42 132,64 116,72 C106,86 80,84 72,74 C60,86 34,86 30,74" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="sun" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash"><circle class="c-butter" cx="64" cy="58" r="38"/></g>
+      <g class="line">
+        <circle cx="60" cy="60" r="34" pathLength="1" class="partial"/>
+        <path d="M60,8 L60,18 M60,102 L60,112 M8,60 L18,60 M102,60 L112,60 M23,23 L30,30 M97,23 L90,30 M23,97 L30,90" pathLength="1"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="f-daisy" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash" transform="translate(3,2)">
+        <g class="c-pink" transform="translate(0,-64)">
+          <use href="#petal"/><use href="#petal" transform="rotate(45)"/><use href="#petal" transform="rotate(90)"/><use href="#petal" transform="rotate(135)"/>
+          <use href="#petal" transform="rotate(180)"/><use href="#petal" transform="rotate(225)"/><use href="#petal" transform="rotate(270)"/><use href="#petal" transform="rotate(315)"/>
+        </g>
+        <circle class="c-butter" cx="0" cy="-64" r="8"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-28)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C3,-18 -3,-38 0,-56" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-28)"/>
+        <g transform="translate(0,-64)">
+          <use href="#petal"/><use href="#petal" transform="rotate(45)"/><use href="#petal" transform="rotate(90)"/><use href="#petal" transform="rotate(135)"/>
+          <use href="#petal" transform="rotate(180)"/><use href="#petal" transform="rotate(225)"/><use href="#petal" transform="rotate(270)"/><use href="#petal" transform="rotate(315)"/>
+        </g>
+        <circle cx="0" cy="-64" r="6" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    <symbol id="f-tulip" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash" transform="translate(3,3)">
+        <path class="c-coral" d="M-13,-56 C-16,-74 -9,-84 0,-92 C9,-84 16,-74 13,-56 C6,-50 -6,-50 -13,-56 Z"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-22) scale(-1,1)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C-3,-18 3,-36 0,-52" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-22) scale(-1,1)"/>
+        <path d="M-13,-56 C-16,-74 -9,-84 0,-92 C9,-84 16,-74 13,-56 C6,-50 -6,-50 -13,-56 Z" pathLength="1"/>
+        <path d="M-4,-54 C-7,-70 -3,-82 0,-88 M4,-54 C7,-70 3,-82 0,-88" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <symbol id="f-bell" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash" transform="translate(3,2)">
+        <path class="c-lavender" d="M-4,-70 C-8,-62 -8,-52 -1,-46 L11,-46 C18,-52 18,-62 14,-70 Z"/>
+        <path class="c-lavender" d="M-20,-52 C-24,-46 -24,-38 -18,-34 L-9,-34 C-3,-38 -3,-46 -7,-52 Z"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-16)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C2,-24 -4,-50 6,-72" pathLength="1"/>
+        <path d="M2,-50 C-4,-52 -10,-52 -14,-56" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-16)"/>
+        <path d="M-4,-70 C-8,-62 -8,-52 -1,-46 L11,-46 C18,-52 18,-62 14,-70" pathLength="1"/>
+        <path d="M-20,-52 C-24,-46 -24,-38 -18,-34 L-9,-34 C-3,-38 -3,-46 -7,-52" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <symbol id="f-poppy" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash" transform="translate(4,2)">
+        <g class="c-coral" transform="translate(0,-66)">
+          <use href="#petal-wide"/><use href="#petal-wide" transform="rotate(90)"/><use href="#petal-wide" transform="rotate(180)"/><use href="#petal-wide" transform="rotate(270)"/>
+        </g>
+        <circle class="c-ink" cx="0" cy="-66" r="5"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-30) scale(-1,1)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C4,-16 -4,-40 0,-58" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-30) scale(-1,1)"/>
+        <g transform="translate(0,-66)">
+          <use href="#petal-wide"/><use href="#petal-wide" transform="rotate(90)"/><use href="#petal-wide" transform="rotate(180)"/><use href="#petal-wide" transform="rotate(270)"/>
+        </g>
+      </g>
+    </symbol>
+
+    <symbol id="f-lavender" viewBox="-40 -100 80 110" overflow="visible">
+      <g class="wash c-lavender" transform="translate(3,2)">
+        <ellipse cx="-5" cy="-88" rx="6" ry="4"/><ellipse cx="5" cy="-82" rx="6" ry="4"/>
+        <ellipse cx="-6" cy="-76" rx="6" ry="4"/><ellipse cx="5" cy="-70" rx="6" ry="4"/>
+        <ellipse cx="-5" cy="-64" rx="6" ry="4"/><ellipse cx="4" cy="-58" rx="6" ry="4"/>
+        <use href="#leaf" class="c-leaf" transform="translate(0,-26)"/>
+      </g>
+      <g class="line">
+        <path d="M0,0 C2,-30 -2,-60 0,-92" pathLength="1"/>
+        <use href="#leaf" transform="translate(0,-26)"/>
+        <path d="M-8,-86 L-2,-90 M-8,-74 L-2,-78 M-8,-62 L-2,-66 M2,-80 L8,-84 M2,-68 L8,-72 M2,-56 L8,-60" pathLength="1"/>
+      </g>
+    </symbol>
+
+    
+    
+    <symbol id="s-jar" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-water" transform="translate(4,3)" d="M30,52 L30,100 C30,108 40,110 60,110 C80,110 90,108 90,100 L90,52 Z"/>
+        <circle class="c-pink" cx="62" cy="80" r="15"/>
+      </g>
+      <g class="line">
+        <path d="M34,26 L86,26 M32,26 C32,40 30,44 30,48 L30,102 C30,110 40,112 60,112 C80,112 90,110 90,102 L90,48 C90,44 88,40 88,26" pathLength="1"/>
+        <path d="M36,18 L84,18 L84,26 L36,26 Z" pathLength="1"/>
+        <path d="M32,52 C48,48 72,48 88,52" pathLength="1" class="partial"/>
+        <circle cx="60" cy="80" r="13" pathLength="1"/>
+        <path d="M48,72 L43,67 M72,72 L77,67 M48,88 L43,93 M72,88 L77,93 M60,67 L60,61 M60,93 L60,99" pathLength="1"/>
+        <circle cx="60" cy="80" r="4" pathLength="1"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="s-summit" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-moss" transform="translate(4,3)" d="M8,108 L46,40 L60,60 L74,34 L114,108 Z"/>
+        <path class="c-paper" transform="translate(4,3)" d="M64,50 L74,34 L86,56 L78,52 L72,60 Z"/>
+        <path class="c-coral" transform="translate(3,2)" d="M74,14 L96,20 L74,28 Z"/>
+      </g>
+      <g class="line">
+        <path d="M6,108 L46,40 L60,60 L74,34 L114,108" pathLength="1"/>
+        <path d="M74,34 L74,12 L96,19 L74,26" pathLength="1"/>
+        <path d="M62,52 L68,58 L72,50 L78,56 L84,50" pathLength="1" class="partial"/>
+        <path d="M6,108 C30,104 90,104 114,108" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="s-brain" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-pink" transform="translate(4,3)" d="M30,80 C14,78 12,56 24,48 C18,32 38,22 52,32 C58,20 84,20 88,34 C104,34 108,58 96,66 C102,84 84,92 72,84 C64,94 44,94 40,84 C36,86 30,84 30,80 Z"/>
+        <path class="c-leaf" transform="translate(3,2)" d="M60,26 C56,14 62,6 70,4 C72,14 66,22 60,26 Z"/>
+      </g>
+      <g class="line">
+        <path d="M30,80 C14,78 12,56 24,48 C18,32 38,22 52,32 C58,20 84,20 88,34 C104,34 108,58 96,66 C102,84 84,92 72,84 C64,94 44,94 40,84 C36,86 30,84 30,80 Z" pathLength="1"/>
+        <path d="M58,32 C56,48 60,62 54,84 M40,50 C48,52 52,60 46,70 M74,44 C68,54 72,64 82,70 M64,54 C74,52 80,56 84,60" pathLength="1" class="partial"/>
+        <path d="M60,30 C58,18 62,8 70,4 C72,14 66,22 60,30" pathLength="1"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="s-lens" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <circle class="c-sky" transform="translate(3,3)" cx="50" cy="50" r="34"/>
+        <circle class="c-pink" transform="translate(2,2)" cx="50" cy="50" r="16"/>
+        <path class="c-sienna" transform="translate(3,2)" d="M76,72 L106,102 L100,108 L70,78 Z"/>
+      </g>
+      <g class="line">
+        <circle cx="50" cy="50" r="34" pathLength="1"/>
+        <circle cx="50" cy="50" r="38" pathLength="1" class="partial"/>
+        <path d="M78,74 L108,104 M74,78 L104,108" pathLength="1"/>
+        <circle cx="50" cy="50" r="15" pathLength="1"/>
+        <path d="M37,40 L31,34 M63,40 L69,34 M37,60 L31,66 M63,60 L69,66 M50,35 L50,28 M50,65 L50,72" pathLength="1"/>
+        <circle cx="50" cy="50" r="5" pathLength="1"/>
+        <path d="M28,28 C32,24 36,22 40,20" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="s-knight" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-sienna" transform="translate(4,3)" d="M34,104 L86,104 L86,96 C74,92 76,80 82,68 C90,52 84,36 68,26 C64,20 60,14 56,10 L52,20 L38,26 C30,34 28,46 34,56 L46,52 C48,62 40,72 34,84 Z"/>
+      </g>
+      <g class="line">
+        <path d="M34,104 L86,104 L86,96 C74,92 76,80 82,68 C90,52 84,36 68,26 C64,20 60,14 56,10 L52,20 L38,26 C30,34 28,46 34,56 L46,52 C48,62 40,72 34,84 Z" pathLength="1"/>
+        <path d="M30,104 L90,104 L90,112 L30,112 Z" pathLength="1"/>
+        <circle cx="52" cy="32" r="2" pathLength="1"/>
+        <path d="M44,40 C48,44 52,46 58,44" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="s-notebook" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash">
+        <path class="c-butter" transform="translate(4,3)" d="M30,18 L92,14 L96,104 L34,108 Z"/>
+        <path class="c-leaf" transform="translate(3,2)" d="M50,66 L60,78 L82,48 L86,54 L60,88 L44,72 Z"/>
+      </g>
+      <g class="line">
+        <path d="M30,18 L92,14 L96,104 L34,108 Z" pathLength="1"/>
+        <path d="M28,28 L36,28 M28,44 L36,44 M28,60 L36,60 M28,76 L36,76 M28,92 L36,92" pathLength="1"/>
+        <path d="M48,34 L80,32 M48,46 L74,44" pathLength="1" class="partial"/>
+        <path d="M48,68 L60,80 L84,50" pathLength="1"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="d-belt" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-ink" transform="translate(3,2)" d="M6,30 C30,26 50,36 60,34 C70,32 90,26 114,30 L114,46 C90,42 70,50 60,48 C50,46 30,40 6,46 Z"/></g>
+      <g class="line">
+        <path d="M6,30 C30,26 50,36 60,34 C70,32 90,26 114,30 L114,46 C90,42 70,50 60,48 C50,46 30,40 6,46 Z" pathLength="1"/>
+        <path d="M52,32 C56,40 64,42 68,34 M54,46 C50,58 44,66 40,72 M66,46 C70,58 76,66 82,72" pathLength="1"/>
+      </g>
+    </symbol>
+    <symbol id="d-whistle" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-sienna" transform="translate(3,2)" d="M30,40 C30,26 42,18 54,20 L98,20 L98,36 L64,40 C62,54 48,62 36,56 C30,52 30,46 30,40 Z"/></g>
+      <g class="line">
+        <path d="M30,40 C30,26 42,18 54,20 L98,20 L98,36 L64,40 C62,54 48,62 36,56 C30,52 30,46 30,40 Z" pathLength="1"/>
+        <circle cx="46" cy="40" r="6" pathLength="1"/>
+        <path d="M100,12 C106,10 110,10 116,12 M100,44 C106,46 110,46 116,44" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+    <symbol id="d-gi" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-paper" transform="translate(3,2)" d="M40,10 L60,26 L80,10 L104,20 L98,44 L88,42 L88,74 L32,74 L32,42 L22,44 L16,20 Z"/><path class="c-coral" transform="translate(3,2)" d="M32,60 L88,60 L88,68 L32,68 Z"/></g>
+      <g class="line">
+        <path d="M40,10 L60,26 L80,10 L104,20 L98,44 L88,42 L88,74 L32,74 L32,42 L22,44 L16,20 Z" pathLength="1"/>
+        <path d="M40,10 L60,50 L80,10" pathLength="1" class="partial"/>
+        <path d="M32,60 L88,60 M32,68 L88,68" pathLength="1"/>
+      </g>
+    </symbol>
+    <symbol id="d-lantern" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-coral" transform="translate(3,2)" d="M60,8 C86,8 98,24 98,40 C98,56 86,72 60,72 C34,72 22,56 22,40 C22,24 34,8 60,8 Z"/></g>
+      <g class="line">
+        <path d="M60,8 C86,8 98,24 98,40 C98,56 86,72 60,72 C34,72 22,56 22,40 C22,24 34,8 60,8 Z" pathLength="1"/>
+        <path d="M44,10 C36,30 36,50 44,70 M76,10 C84,30 84,50 76,70 M60,8 L60,72" pathLength="1" class="partial"/>
+        <path d="M50,6 L70,6 M50,74 L70,74 M60,74 L60,80" pathLength="1"/>
+      </g>
+    </symbol>
+    <symbol id="d-book" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash"><path class="c-sky" transform="translate(3,2)" d="M14,16 C30,10 46,12 60,20 C74,12 90,10 106,16 L106,66 C90,60 74,62 60,70 C46,62 30,60 14,66 Z"/></g>
+      <g class="line">
+        <path d="M14,16 C30,10 46,12 60,20 C74,12 90,10 106,16 L106,66 C90,60 74,62 60,70 C46,62 30,60 14,66 Z" pathLength="1"/>
+        <path d="M60,20 L60,70" pathLength="1"/>
+        <path d="M24,28 C34,24 44,26 52,30 M24,40 C34,36 44,38 52,42 M68,30 C76,26 86,24 96,28" pathLength="1" class="partial"/>
+      </g>
+    </symbol>
+
+    
+    <symbol id="s-boat" viewBox="0 0 120 80" overflow="visible">
+      <g class="wash">
+        <path class="c-paper" transform="translate(3,2)" d="M10,44 L110,44 L88,70 L32,70 Z"/>
+        <path class="c-butter" transform="translate(3,2)" d="M60,8 L60,44 L96,44 Z"/>
+        <path class="c-paper" transform="translate(3,2)" d="M60,8 L60,44 L24,44 Z"/>
+      </g>
+      <g class="line">
+        <path d="M10,44 L110,44 L88,70 L32,70 Z" pathLength="1"/>
+        <path d="M24,44 L60,8 L96,44 M60,8 L60,44" pathLength="1"/>
+      </g>
+    </symbol>
+
+    <symbol id="s-bin" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash"><path class="c-leaf" transform="translate(3,2)" d="M32,36 L88,36 L82,108 L38,108 Z"/><path class="c-water" d="M26,28 L94,28 L94,38 L26,38 Z"/><path class="c-leaf" d="M62,25 C44,23 42,6 42,6 C63,4 76,12 62,25 Z"/></g>
+      <g class="line"><path d="M32,36 L88,36 L82,108 L38,108 Z M26,28 L94,28 L94,38 L26,38 Z M50,28 L50,22 L70,22 L70,28 M48,50 L50,94 M60,50 L60,94 M72,50 L70,94 M62,22 C46,22 42,6 42,6 C62,4 74,12 62,22 M47,10 L62,24" pathLength="1"/></g>
+    </symbol>
+
+    
+    <symbol id="s-plane" viewBox="0 0 60 40" overflow="visible">
+      <g class="wash"><path class="c-butter" transform="translate(2,1)" d="M2,20 L56,4 L38,36 L26,24 Z"/></g>
+      <g class="line">
+        <path d="M2,20 L56,4 L38,36 L26,24 Z M2,20 L26,24 M26,24 L56,4" pathLength="1"/>
+      </g>
+    </symbol>
+  </defs>
+
+<rect width="1200" height="630" fill="#f6f1e7"/>
+<path d="M-40,-40 H1240 V160 C950,205 730,130 490,180 C240,205 80,145 -40,185Z" fill="#a9cce0" filter="url(#wash-big)"/>
+<svg x="910" y="44" width="130" height="130" viewBox="0 0 120 120"><use href="#sun"/></svg>
+<svg x="95" y="42" width="210" height="115" viewBox="0 0 200 110"><use href="#cloud-a"/></svg>
+<svg x="1020" y="220" width="130" height="85" viewBox="0 0 140 90"><use href="#cloud-b"/></svg>
+<path d="M230,260 C400,230 800,230 980,270 L980,325 C750,350 400,340 230,330Z" fill="#f3b5c3" opacity=".45" filter="url(#wash-big)"/>
+<path d="M200,272 C430,245 770,270 950,280 L930,333 C700,330 360,343 210,335Z" fill="#f5d565" opacity=".45" filter="url(#wash-big)"/>
+<g text-anchor="middle" fill="#2f2c29" font-family="Georgia,serif"><text x="600" y="216" font-size="26" fill="#5d5751">hi, I'm</text><text x="600" y="329" font-weight="bold" font-size="104">Ben Nguyen</text><text x="600" y="400" font-size="30">Immune cells, code, and a lot of questions.</text><text x="600" y="457" font-size="21" fill="#5d5751">A field sketchbook of research &amp; things I'm making</text></g>
+<path d="M-40,545 C220,490 430,580 720,530 C970,490 1100,550 1240,510 V680 H-40Z" fill="#c2c37c" filter="url(#wash-big)"/>
+<path d="M-40,600 C260,550 520,640 820,590 C1000,555 1140,620 1240,580 V680 H-40Z" fill="#a3c58f" filter="url(#wash-big)"/>
+<text x="600" y="576" text-anchor="middle" fill="#45493a" font-family="Georgia,serif" font-size="22">bennguyen.cv</text>
+</svg>

@@ -3,15 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ben Nguyen</title>
-<meta name="description" content="Ben Nguyen — a high schooler in San Jose who likes finding out how things work. Immune cells, code, and a lot of questions.">
+<title>Ben Nguyen — immune cells, code &amp; curiosity</title>
+<meta name="description" content="Ben Nguyen is a high school senior in San Jose exploring computational immunology, cooperative AI, and useful software. Research, projects, and a little curiosity.">
+<link rel="canonical" href="https://bennguyen.cv/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bennguyen.cv/">
+<meta property="og:title" content="Ben Nguyen — immune cells, code &amp; curiosity">
+<meta property="og:description" content="A field sketchbook of computational immunology, cooperative AI, and things I'm making. San Jose, California.">
+<meta property="og:image" content="https://bennguyen.cv/assets/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ben Nguyen's watercolor field sketchbook: immune cells, code, and a lot of questions.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f6f1e7">
 <link rel="preload" href="fonts/cmu-serif-500-roman.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/cmu-serif-700-roman.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20260926">
+<script src="script.js?v=20260926" defer></script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='11' fill='%23f2917f'/%3E%3Ccircle cx='13' cy='13' r='11' fill='%23f6d56a' opacity='.7'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Ben Nguyen","url":"https://bennguyen.cv/","description":"High school senior exploring computational immunology and building useful software.","sameAs":["https://github.com/yshms","https://linkedin.com/in/benfngu"],"knowsAbout":["Computational immunology","CRISPR screen analysis","Python","Cooperative AI"]}
+</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ============================================================
      SHARED DEFS: watercolor + pencil filters, and every sketch
@@ -322,6 +337,11 @@
       </g>
     </symbol>
 
+    <symbol id="s-bin" viewBox="0 0 120 120" overflow="visible">
+      <g class="wash"><path class="c-leaf" transform="translate(3,2)" d="M32,36 L88,36 L82,108 L38,108 Z"/><path class="c-water" d="M26,28 L94,28 L94,38 L26,38 Z"/><path class="c-leaf" d="M62,25 C44,23 42,6 42,6 C63,4 76,12 62,25 Z"/></g>
+      <g class="line"><path d="M32,36 L88,36 L82,108 L38,108 Z M26,28 L94,28 L94,38 L26,38 Z M50,28 L50,22 L70,22 L70,28 M48,50 L50,94 M60,50 L60,94 M72,50 L70,94 M62,22 C46,22 42,6 42,6 C62,4 74,12 62,22 M47,10 L62,24" pathLength="1"/></g>
+    </symbol>
+
     <!-- paper plane (the little traveler) -->
     <symbol id="s-plane" viewBox="0 0 60 40" overflow="visible">
       <g class="wash"><path class="c-butter" transform="translate(2,1)" d="M2,20 L56,4 L38,36 L26,24 Z"/></g>
@@ -338,19 +358,21 @@
 <svg id="plane-layer" aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none">
   <path id="plane-path" d="M-6,14 C20,10 24,30 38,26 C58,20 52,44 46,52 C40,60 70,58 82,66 C96,74 84,90 108,92" fill="none"/>
 </svg>
-<div id="plane" aria-hidden="true"><svg viewBox="0 0 60 40"><use href="#s-plane"/></svg></div>
+<div id="plane" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 60 40"><use href="#s-plane"/></svg></div>
 
 <header class="nav" id="top">
-  <a class="nav-home" href="#sky">ben</a>
-  <nav aria-label="Sections">
-    <a href="#wonder">wonder</a>
-    <a href="#notes">notes</a>
-    <a href="#making">making</a>
+  <a class="nav-home" href="#sky" aria-label="Ben Nguyen, back to top">ben<span class="nav-dot" aria-hidden="true">.</span></a>
+  <nav aria-label="Main navigation">
+    <a href="#making" aria-label="projects"><span class="nav-wide">projects</span><span class="nav-short" aria-hidden="true">work</span></a>
+    <a href="#notes">research</a>
+    <a href="#wonder" aria-label="curiosity"><span class="nav-wide">curiosity</span><span class="nav-short" aria-hidden="true">wonder</span></a>
     <a href="#hi">say hi</a>
+    <a class="nav-cv" href="assets/Ben_Nguyen_CV.pdf">CV <span aria-hidden="true">↗</span><span class="sr-only"> (PDF)</span></a>
   </nav>
+  <button class="motion-toggle" type="button" hidden aria-pressed="false" aria-label="Pause animations"><span aria-hidden="true">Ⅱ</span> <span data-motion-label>pause motion</span></button>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 
   <!-- ===================== SKY ===================== -->
   <section id="sky" class="sky" data-reveal>
@@ -367,7 +389,7 @@
       </g>
     </svg>
 
-    <div class="sun"><svg viewBox="0 0 120 120"><use href="#sun"/></svg></div>
+    <div class="sun"><svg aria-hidden="true" viewBox="0 0 120 120"><use href="#sun"/></svg></div>
     <svg class="birds" viewBox="0 0 160 60" aria-hidden="true">
       <g class="line">
         <path d="M10,30 C16,22 22,22 28,30 C34,22 40,22 46,30" pathLength="1" class="partial"/>
@@ -376,10 +398,10 @@
       </g>
     </svg>
 
-    <div class="cloud cloud-1"><svg viewBox="0 0 200 110"><use href="#cloud-a"/></svg></div>
-    <div class="cloud cloud-2"><svg viewBox="0 0 140 90"><use href="#cloud-b"/></svg></div>
-    <div class="cloud cloud-3"><svg viewBox="0 0 200 110"><use href="#cloud-a"/></svg></div>
-    <div class="cloud cloud-4"><svg viewBox="0 0 140 90"><use href="#cloud-b"/></svg></div>
+    <div class="cloud cloud-1"><svg aria-hidden="true" viewBox="0 0 200 110"><use href="#cloud-a"/></svg></div>
+    <div class="cloud cloud-2"><svg aria-hidden="true" viewBox="0 0 140 90"><use href="#cloud-b"/></svg></div>
+    <div class="cloud cloud-3"><svg aria-hidden="true" viewBox="0 0 200 110"><use href="#cloud-a"/></svg></div>
+    <div class="cloud cloud-4"><svg aria-hidden="true" viewBox="0 0 140 90"><use href="#cloud-b"/></svg></div>
 
     <div class="hero">
       <p class="scribble hello">hi, I'm</p>
@@ -387,11 +409,16 @@
         <span>B</span><span>e</span><span>n</span><span class="sp"> </span><span>N</span><span>g</span><span>u</span><span>y</span><span>e</span><span>n</span>
       </h1>
       <p class="tagline">I like finding out how things work.</p>
-      <p class="scribble where">a high schooler in San Jose &middot; immune cells, code, and a lot of questions</p>
+      <p class="hero-bio">I'm a high school senior in San Jose, exploring immune cells, cooperative AI, and the useful things we can build with code.</p>
+      <div class="hero-actions">
+        <a class="paper-button primary" href="#making">Explore my work <span aria-hidden="true">↘</span></a>
+        <a class="text-link" href="assets/Ben_Nguyen_CV.pdf" download>Download CV <span aria-hidden="true">↓</span><span class="sr-only"> (PDF)</span></a>
+      </div>
+      <p class="scribble where">San Jose, California <span aria-hidden="true">·</span> Class of 2027</p>
     </div>
 
-    <a class="cue" href="#wonder">
-      <span>keep going</span>
+    <a class="cue" href="#making">
+      <span>a few pages from my sketchbook</span>
       <svg viewBox="0 0 40 60" aria-hidden="true"><path class="line" d="M20,4 C16,20 24,34 20,52 M10,42 C14,46 18,50 20,54 C22,50 26,46 30,42" pathLength="1"/></svg>
     </a>
 
@@ -406,41 +433,155 @@
     </svg>
   </section>
 
+  <aside class="currently" aria-label="At a glance">
+    <span class="scribble">in the notebook lately</span>
+    <p>Curating immune-cell data at <a href="#project-fitdb">Reina Lab</a>. Building a <a href="#project-bughouse">better AI teammate</a>. Asking one more question.</p>
+  </aside>
+
+  <section id="making" class="making" data-reveal aria-labelledby="projects-title">
+    <header class="sec-head">
+      <p class="eyebrow">A question, then something to show for it</p>
+      <h2 id="projects-title">things I'm making</h2>
+      <p class="scribble">Research concepts, working software, and experiments still taking shape.</p>
+    </header>
+    <div class="project-tools" hidden>
+      <div class="project-filters" role="group" aria-label="Filter projects">
+        <button type="button" data-filter="all" aria-pressed="true" aria-controls="project-list">All work <span>04</span></button>
+        <button type="button" data-filter="research" aria-pressed="false" aria-controls="project-list">Research <span>02</span></button>
+        <button type="button" data-filter="software" aria-pressed="false" aria-controls="project-list">Software <span>02</span></button>
+      </div>
+      <p class="filter-count" role="status" aria-live="polite" aria-atomic="true">Showing all 4 projects</p>
+    </div>
+    <div class="sheets" id="project-list">
+      <article id="project-fitdb" class="sheet" style="--tilt:-.7deg" data-category="research" data-reveal>
+        <span class="tape" aria-hidden="true"></span>
+        <div class="project-top"><span class="project-index">01 / immunogenomics</span><span class="project-state">ongoing research</span></div>
+        <div class="sketch"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-notebook"/></svg></div>
+        <h3>Making immune-cell data reusable</h3>
+        <p>Published CRISPR screens hold clues about how immune cells work. I help curate them into FITdb, with reproducible analyses that other researchers can build on.</p>
+        <ul class="tags" aria-label="Tools and methods"><li>Python</li><li>MAGeCK</li><li>Perturb-seq</li></ul>
+        <details class="project-detail"><summary>Inside the work <span aria-hidden="true">+</span></summary>
+          <div><h4>My contribution</h4><p>As a volunteer research contributor in the Reina Lab at La Jolla Institute for Immunology, I re-analyze published screens and build notebooks with quality checks and recorded data provenance.</p><h4>What I'm working toward</h4><p>Analysis that is easier to inspect, repeat, and reuse. My contributions include a single-cell Perturb-seq analysis deliverable.</p><a class="text-link" href="#notes">Research experience <span aria-hidden="true">↗</span></a></div>
+        </details>
+      </article>
+      <article id="project-binit" class="sheet" style="--tilt:.6deg" data-category="software" data-reveal>
+        <span class="tape" aria-hidden="true"></span>
+        <div class="project-top"><span class="project-index">02 / everyday tools</span><span class="project-state award">1st · CED Hacks</span></div>
+        <div class="sketch"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-bin"/></svg></div>
+        <h3>BinIt: a little less bin confusion</h3>
+        <p>Take a photo. Check the material, the mess, and the local rules. A waste-sorting app that explains where an item belongs and points to the municipal source.</p>
+        <ul class="tags" aria-label="Tools and methods"><li>Node.js</li><li>Express</li><li>Anthropic SDK</li></ul>
+        <details class="project-detail"><summary>The idea &amp; the build <span aria-hidden="true">+</span></summary>
+          <div><h4>Why we built it</h4><p>A greasy paper plate and a clean one can need different disposal advice. We wanted a tool that considers an item’s condition alongside its material.</p><h4>What we made</h4><p>I built BinIt with two teammates at CED Hacks 2026, where our team took first place. The demo used San Jose disposal rules and returned the municipal source behind its guidance.</p><a class="text-link" href="mailto:benguyen1247@gmail.com?subject=Tell%20me%20about%20BinIt">Ask me about BinIt <span aria-hidden="true">↗</span></a></div>
+        </details>
+      </article>
+      <article id="project-cart" class="sheet" style="--tilt:.5deg" data-category="research" data-reveal>
+        <span class="tape" aria-hidden="true"></span>
+        <div class="project-top"><span class="project-index">03 / cell therapy</span><span class="project-state award">1st · BioEHSC</span></div>
+        <div class="sketch"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-lens"/></svg></div>
+        <h3>A closer look at CAR-T quality</h3>
+        <p>A proposed dual-layer system for spotting problems in CAR T-cell manufacturing, combining Raman spectroscopy with measurements of cell state and metabolism.</p>
+        <ul class="tags" aria-label="Tools and methods"><li>System design</li><li>Raman</li><li>SCENITH</li></ul>
+        <details class="project-detail"><summary>Read the research concept <span aria-hidden="true">+</span></summary>
+          <div><h4>My contribution</h4><p>I led a five-person team and translated T-cell biology into engineering requirements. I wrote a 23-page architecture guide and compiled a 13-paper citation library.</p><h4>Where it stands</h4><p>The first-author manuscript is in preparation. This is a proposed architecture, not an experimentally or clinically validated system.</p><a class="text-link" href="mailto:benguyen1247@gmail.com?subject=CAR-T%20quality-control%20research">Talk about the design <span aria-hidden="true">↗</span></a></div>
+        </details>
+      </article>
+      <article id="project-bughouse" class="sheet" style="--tilt:-.6deg" data-category="software" data-reveal>
+        <span class="tape" aria-hidden="true"></span>
+        <div class="project-top"><span class="project-index">04 / cooperative AI</span><span class="project-state">in development</span></div>
+        <div class="sketch"><svg viewBox="0 0 120 120" aria-hidden="true"><use href="#s-knight"/></svg></div>
+        <h3>A chess engine that plays with you</h3>
+        <p>Two boards, shared pieces, and a human teammate. A Bughouse engine exploring how an AI can make good decisions when cooperation is part of the game.</p>
+        <ul class="tags" aria-label="Tools and methods"><li>Python</li><li>PyTorch</li><li>Teamwork</li></ul>
+        <details class="project-detail"><summary>Why two boards? <span aria-hidden="true">+</span></summary>
+          <div><h4>The question</h4><p>In Bughouse, captured pieces go to your partner, who can drop them onto their board. A useful move has to account for both games, incomplete information, and a ticking clock.</p><h4>The collaboration</h4><p>I'm building the engine with a classmate under PhD mentorship. We’re exploring an AI that plays one board as a human’s teammate.</p><a class="text-link" href="mailto:benguyen1247@gmail.com?subject=Cooperative%20Bughouse%20AI">Talk chess &amp; AI <span aria-hidden="true">↗</span></a></div>
+        </details>
+      </article>
+    </div>
+    <p class="project-footnote">More code &amp; small experiments <span aria-hidden="true">→</span> <a class="text-link" href="https://github.com/yshms" target="_blank" rel="noopener noreferrer">on GitHub <span class="sr-only">(opens in a new tab)</span>↗</a></p>
+  </section>
+
+  <!-- ===================== FIELD NOTES ===================== -->
+  <section id="notes" class="river-sec" data-reveal>
+    <header class="sec-head">
+      <h2>field notes</h2>
+      <p class="scribble">The people, places, and projects I’m learning from.</p>
+    </header>
+
+    <div class="river">
+      <svg class="river-svg" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+        <path class="river-wash" d="M50,-20 C30,120 80,220 50,340 C20,460 80,560 50,680 C20,800 80,900 50,1020" vector-effect="non-scaling-stroke"/>
+      </svg>
+      <svg class="river-svg river-svg-line" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+        <path class="river-line line partial" d="M50,-20 C30,120 80,220 50,340 C20,460 80,560 50,680 C20,800 80,900 50,1020" pathLength="1" vector-effect="non-scaling-stroke"/>
+      </svg>
+
+      <ol class="stops">
+        <li class="stop" data-reveal>
+          <div class="sketch"><svg aria-hidden="true" viewBox="0 0 120 120"><use href="#s-jar"/></svg></div>
+          <div class="card">
+            <p class="scribble when">Aug 2026 &rarr; present</p>
+            <h3>Reina Lab, La Jolla Institute for Immunology</h3>
+            <p class="role">volunteer research contributor &middot; hybrid</p>
+            <p>I re-analyze published CRISPR screens and single-cell Perturb-seq data for FITdb, the lab’s immunogenomics database. My notebooks record their inputs and check the quality of their results.</p>
+          </div>
+        </li>
+        <li class="stop" data-reveal>
+          <div class="sketch"><svg aria-hidden="true" viewBox="0 0 120 120"><use href="#s-summit"/></svg><span class="stamp stamp-first">1st</span></div>
+          <div class="card">
+            <p class="scribble when">Jan &ndash; Apr 2026</p>
+            <h3>UC Berkeley BioEHSC</h3>
+            <p class="role">project lead &amp; biology</p>
+            <p>I led a five-person team proposing a quality-control system for CAR-T manufacturing. We earned first place in Biological Engineering at BioEHSC 2026, a competition with 78 teams.</p>
+          </div>
+        </li>
+        <li class="stop" data-reveal>
+          <div class="sketch"><svg aria-hidden="true" viewBox="0 0 120 120"><use href="#s-brain"/></svg></div>
+          <div class="card">
+            <p class="scribble when">Feb &ndash; Apr 2026</p>
+            <h3>ThinkNeuro</h3>
+            <p class="role">research intern &middot; remote</p>
+            <p>In a ten-week research program, I analyzed neural-circuit literature with R, earned a Certificate in R and Bibliometrics, and presented the work at the ThinkNeuro Symposium.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- ===================== WONDER ===================== -->
   <section id="wonder" class="meadow" data-reveal>
     <header class="sec-head">
       <h2>things I wonder about</h2>
-      <p class="scribble">(tap a flower)</p>
+      <p class="scribble">A few questions that keep me going. Open a flower to follow the thread.</p>
     </header>
 
     <div class="field">
-      <button class="flower" style="--x:8%;  --s:1.05; --d:0.0s" aria-expanded="false">
-        <svg viewBox="0 0 80 110"><use href="#f-daisy"/></svg>
-        <span class="note"><b>Why do 1 in 10 CAR-T batches fail?</b><small>so I designed a way to catch a bad batch early (see &sect;3)</small></span>
-      </button>
-      <button class="flower" style="--x:24%; --s:0.9; --d:0.15s" aria-expanded="false">
-        <svg viewBox="0 0 80 110"><use href="#f-tulip"/></svg>
-        <span class="note"><b>What makes a T cell tired?</b><small>exhaustion, metabolism, and why a cell's fitness matters long before it meets a tumor</small></span>
-      </button>
-      <button class="flower" style="--x:40%; --s:1.05; --d:0.3s" aria-expanded="false">
-        <svg viewBox="0 0 80 110"><use href="#f-bell"/></svg>
-        <span class="note"><b>Which genes make an immune cell brave?</b><small>CRISPR screens ask exactly this. I curate them into FITdb at the La Jolla Institute for Immunology</small></span>
-      </button>
-      <button class="flower" style="--x:56%; --s:1.1; --d:0.45s" aria-expanded="false">
-        <svg viewBox="0 0 80 110"><use href="#f-poppy"/></svg>
-        <span class="note"><b>Can an AI be a good teammate?</b><small>we're building a Bughouse chess engine that plays <em>with</em> a human, not instead of one</small></span>
-      </button>
-      <button class="flower" style="--x:72%; --s:0.95; --d:0.6s" aria-expanded="false">
-        <svg viewBox="0 0 80 110"><use href="#f-lavender"/></svg>
-        <span class="note"><b>How do you teach a kid to fall safely?</b><small>gently, and many times over. I coach youth judo</small></span>
-      </button>
-      <button class="flower" style="--x:88%; --s:0.85; --d:0.75s" aria-expanded="false">
-        <svg viewBox="0 0 80 110"><use href="#f-daisy"/></svg>
-        <span class="note"><b>How many papers is <em>a lot</em> of papers?</b><small>at ThinkNeuro I learned to measure a literature with R (bibliometrics)</small></span>
-      </button>
-
+      <details class="flower" style="--d:0.00s">
+        <summary><svg viewBox="0 0 80 110" aria-hidden="true"><use href="#f-daisy"/></svg><span>Can we catch a bad cell-therapy batch earlier?</span><span class="flower-cue" aria-hidden="true">open a little thought +</span></summary>
+        <div class="note"><p>That question became our BioEHSC project: a proposed quality-control system for CAR-T manufacturing.</p><a class="text-link" href="#project-cart">Read the research concept <span aria-hidden="true">↗</span></a></div>
+      </details>
+      <details class="flower" style="--d:0.15s">
+        <summary><svg viewBox="0 0 80 110" aria-hidden="true"><use href="#f-tulip"/></svg><span>What makes a T cell tired?</span><span class="flower-cue" aria-hidden="true">open a little thought +</span></summary>
+        <div class="note"><p>I’m curious about exhaustion, metabolism, and why a cell’s fitness matters before it ever meets a tumor.</p><a class="text-link" href="#notes">Follow my research <span aria-hidden="true">↗</span></a></div>
+      </details>
+      <details class="flower" style="--d:0.30s">
+        <summary><svg viewBox="0 0 80 110" aria-hidden="true"><use href="#f-bell"/></svg><span>Which genes change how immune cells behave?</span><span class="flower-cue" aria-hidden="true">open a little thought +</span></summary>
+        <div class="note"><p>CRISPR screens help us ask this at scale. At the Reina Lab, I help turn published screens into reusable data.</p><a class="text-link" href="#project-fitdb">Inside FITdb curation <span aria-hidden="true">↗</span></a></div>
+      </details>
+      <details class="flower" style="--d:0.45s">
+        <summary><svg viewBox="0 0 80 110" aria-hidden="true"><use href="#f-poppy"/></svg><span>Can an AI be a good teammate?</span><span class="flower-cue" aria-hidden="true">open a little thought +</span></summary>
+        <div class="note"><p>In Bughouse chess, your partner’s board matters as much as your own. I’m building an engine around that cooperation.</p><a class="text-link" href="#project-bughouse">Meet the chess project <span aria-hidden="true">↗</span></a></div>
+      </details>
+      <details class="flower" style="--d:0.60s">
+        <summary><svg viewBox="0 0 80 110" aria-hidden="true"><use href="#f-lavender"/></svg><span>How do you teach a kid to fall safely?</span><span class="flower-cue" aria-hidden="true">open a little thought +</span></summary>
+        <div class="note"><p>Gently, and many times over. Coaching youth judo keeps me thinking about how people learn, trust, and try again.</p><a class="text-link" href="#also">Life off the page <span aria-hidden="true">↗</span></a></div>
+      </details>
+      <details class="flower" style="--d:0.75s">
+        <summary><svg viewBox="0 0 80 110" aria-hidden="true"><use href="#f-daisy"/></svg><span>Does a greasy paper plate belong in recycling?</span><span class="flower-cue" aria-hidden="true">open a little thought +</span></summary>
+        <div class="note"><p>Material alone doesn’t answer the question. BinIt considers an item’s condition and looks up local disposal guidance.</p><a class="text-link" href="#project-binit">See what we built <span aria-hidden="true">↗</span></a></div>
+      </details>
       <div class="butterfly" aria-hidden="true">
-        <svg viewBox="-30 -24 60 48">
+        <svg aria-hidden="true" viewBox="-30 -24 60 48">
           <g class="wing wing-l"><g class="wash"><path class="c-butter" transform="translate(2,1)" d="M-2,0 C-10,-22 -30,-20 -26,-6 C-28,6 -14,12 -2,2 Z"/></g><g class="line"><path d="M-2,0 C-10,-22 -30,-20 -26,-6 C-28,6 -14,12 -2,2" pathLength="1"/></g></g>
           <g class="wing wing-r"><g class="wash"><path class="c-butter" transform="translate(2,1)" d="M2,0 C10,-22 30,-20 26,-6 C28,6 14,12 2,2 Z"/></g><g class="line"><path d="M2,0 C10,-22 30,-20 26,-6 C28,6 14,12 2,2" pathLength="1"/></g></g>
           <g class="line"><path d="M0,-6 L0,8 M0,-6 C-3,-10 -5,-12 -7,-14 M0,-6 C3,-10 5,-12 7,-14" pathLength="1"/></g>
@@ -458,121 +599,38 @@
     </div>
   </section>
 
-  <!-- ===================== FIELD NOTES ===================== -->
-  <section id="notes" class="river-sec" data-reveal>
-    <header class="sec-head">
-      <h2>field notes</h2>
-      <p class="scribble">where I've been so far</p>
-    </header>
-
-    <div class="river">
-      <svg class="river-svg" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
-        <path class="river-wash" d="M50,-20 C30,120 80,220 50,340 C20,460 80,560 50,680 C20,800 80,900 50,1020" vector-effect="non-scaling-stroke"/>
-      </svg>
-      <svg class="river-svg river-svg-line" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
-        <path class="river-line line partial" d="M50,-20 C30,120 80,220 50,340 C20,460 80,560 50,680 C20,800 80,900 50,1020" pathLength="1" vector-effect="non-scaling-stroke"/>
-      </svg>
-
-      <ol class="stops">
-        <li class="stop" data-reveal>
-          <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-jar"/></svg></div>
-          <div class="card">
-            <p class="scribble when">2026 &rarr; now</p>
-            <h3>Reina Lab, La Jolla Institute for Immunology</h3>
-            <p class="role">research contributor &middot; remote</p>
-            <p>I curate published CRISPR screens into FITdb: re-running each through MAGeCK, mapping mouse genes to human, and writing notebooks that check their own work.</p>
-          </div>
-        </li>
-        <li class="stop" data-reveal>
-          <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-summit"/></svg><span class="stamp stamp-first">1st</span></div>
-          <div class="card">
-            <p class="scribble when">Jan &ndash; Apr 2026</p>
-            <h3>UC Berkeley BioEHSC</h3>
-            <p class="role">project lead &amp; biology</p>
-            <p>Five friends, seven weeks, one question: how do you spot a failing CAR-T batch before it fails? First place in Bioengineering, out of 80+ teams.</p>
-          </div>
-        </li>
-        <li class="stop" data-reveal>
-          <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-brain"/></svg></div>
-          <div class="card">
-            <p class="scribble when">Feb &ndash; Apr 2026</p>
-            <h3>ThinkNeuro</h3>
-            <p class="role">research intern &middot; remote</p>
-            <p>Ten weeks of R and bibliometrics on a neural-circuit meta-analysis, presented to faculty from Harvard, Stanford, and USC.</p>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ===================== MAKING ===================== -->
-  <section id="making" class="making" data-reveal>
-    <header class="sec-head">
-      <h2>things I'm making</h2>
-      <p class="scribble">works in progress, taped in</p>
-    </header>
-
-    <div class="sheets">
-      <article class="sheet" style="--tilt:-1.4deg" data-reveal>
-        <span class="tape" aria-hidden="true"></span>
-        <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-lens"/></svg></div>
-        <p class="scribble label">first-author manuscript &middot; in prep for <em>Frontiers in Immunology</em></p>
-        <h3>Catching bad CAR&#8209;T batches early</h3>
-        <p>Shine Raman light on the cells, train against metabolic ground truth, and let the model say <em>pass</em>, <em>adjust</em>, or <em>flag</em> &mdash; before the batch is finished and the money is spent.</p>
-        <div class="stamps" aria-hidden="true">
-          <span class="stamp stamp-pass">PASS</span>
-          <span class="stamp stamp-adjust">ADJUST</span>
-          <span class="stamp stamp-flag">FLAG</span>
-        </div>
-      </article>
-
-      <article class="sheet" style="--tilt:1.1deg" data-reveal>
-        <span class="tape" aria-hidden="true"></span>
-        <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-knight"/></svg></div>
-        <p class="scribble label">Bughouse chess &middot; Python + PyTorch &middot; with a classmate, PhD-mentored</p>
-        <h3>A chess engine that plays <em>with</em> you</h3>
-        <p>One board for the AI, one for its human partner. It has to guess what you'll do next &mdash; and forgive what you just did.</p>
-      </article>
-
-      <article class="sheet" style="--tilt:-0.6deg" data-reveal>
-        <span class="tape" aria-hidden="true"></span>
-        <div class="sketch"><svg viewBox="0 0 120 120"><use href="#s-notebook"/></svg></div>
-        <p class="scribble label">FITdb curation &middot; MAGeCK &middot; Scanpy</p>
-        <h3>Notebooks that check themselves</h3>
-        <p>Every screen I curate ships with its own QC gates and a SHA-256 of every input, so the result reproduces exactly &mdash; or refuses to.</p>
-      </article>
-    </div>
-  </section>
-
   <!-- ===================== OFF THE PAGE ===================== -->
   <section id="also" class="also" data-reveal>
     <header class="sec-head">
       <h2>off the page</h2>
     </header>
     <ul class="doodles">
-      <li><svg viewBox="0 0 120 80"><use href="#d-belt"/></svg><span>judo instructor &amp; youth coach</span></li>
-      <li><svg viewBox="0 0 120 80"><use href="#d-whistle"/></svg><span>captain, varsity wrestling</span></li>
-      <li><svg viewBox="0 0 120 80"><use href="#d-gi"/></svg><span>founded the martial arts club</span></li>
-      <li><svg viewBox="0 0 120 80"><use href="#d-lantern"/></svg><span>officer, Vietnamese Student Association</span></li>
-      <li><svg viewBox="0 0 120 80"><use href="#d-book"/></svg><span>dual-enrolled at West Valley College</span></li>
+      <li><svg aria-hidden="true" viewBox="0 0 120 80"><use href="#d-belt"/></svg><span>youth judo coach</span></li>
+      <li><svg aria-hidden="true" viewBox="0 0 120 80"><use href="#d-whistle"/></svg><span>captain, varsity wrestling</span></li>
+      <li><svg aria-hidden="true" viewBox="0 0 120 80"><use href="#d-gi"/></svg><span>founded the martial arts club</span></li>
+      <li><svg aria-hidden="true" viewBox="0 0 120 80"><use href="#d-lantern"/></svg><span>officer, Vietnamese Student Association</span></li>
+      <li><svg aria-hidden="true" viewBox="0 0 120 80"><use href="#d-book"/></svg><span>dual-enrolled at West Valley College</span></li>
     </ul>
+    <div class="personal-note"><p>Beyond the lab and the keyboard, I’m a varsity wrestling captain, a youth judo coach, and a believer in showing up for your community.</p><p>I founded our Martial Arts Club, co-founded the Skill Toys Club, and serve as an officer in the Vietnamese Student Association. Since 2023, I’ve also helped distribute food with Second Harvest of Silicon Valley and Catholic Charities USA.</p></div>
+    <p class="education-note"><span class="scribble">still learning</span> Archbishop Mitty High School, Class of 2027 · West Valley College dual enrollment</p>
   </section>
 
   <!-- ===================== SAY HI ===================== -->
   <section id="hi" class="pond" data-reveal>
     <header class="sec-head">
       <h2>say hi</h2>
-      <p class="lead">If you're curious about the same things &mdash; or completely different ones &mdash; write me.</p>
+      <p class="lead">Working on an interesting question? I’d love to hear about it. Research, a project idea, or a good chess puzzle are all welcome.</p>
     </header>
 
     <ul class="links">
       <li><a href="mailto:benguyen1247@gmail.com"><span class="scribble">email</span>benguyen1247@gmail.com</a></li>
-      <li><a href="https://linkedin.com/in/benfnguyen" rel="me noopener" target="_blank"><span class="scribble">linkedin</span>in/benfnguyen</a></li>
-      <li><a href="https://github.com/yshms" rel="me noopener" target="_blank"><span class="scribble">github</span>yshms</a></li>
+      <li><a href="https://linkedin.com/in/benfngu" rel="me noopener" target="_blank" aria-label="LinkedIn (opens in a new tab)"><span class="scribble">linkedin</span>in/benfngu</a></li>
+      <li><a href="https://github.com/yshms" rel="me noopener" target="_blank" aria-label="GitHub (opens in a new tab)"><span class="scribble">github</span>yshms</a></li>
     </ul>
 
+    <div class="contact-tools"><button class="text-button" id="copy-email" type="button" hidden>Copy email address <span aria-hidden="true">⧉</span></button><a class="text-link" href="assets/Ben_Nguyen_CV.pdf" download>Download my CV <span aria-hidden="true">↓</span><span class="sr-only"> (PDF)</span></a><p id="copy-status" class="copy-status" role="status" aria-live="polite"></p></div>
     <div class="water">
-      <div class="boat"><svg viewBox="0 0 120 80"><use href="#s-boat"/></svg></div>
+      <div class="boat"><svg aria-hidden="true" viewBox="0 0 120 80"><use href="#s-boat"/></svg></div>
       <svg class="water-svg" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
         <g class="wash" filter="url(#wash-big)">
           <path class="c-water" d="M-40,90 C200,60 400,120 720,90 C1040,60 1240,120 1480,90 L1480,300 L-40,300 Z"/>
@@ -589,10 +647,11 @@
 </main>
 
 <footer class="foot">
-  <p>Ben Nguyen &middot; San Jose, CA &middot; 2026</p>
+  <a class="back-top text-link" href="#sky">Back to the sky ↑</a>
+  <p>Ben Nguyen &middot; San Jose, CA &middot; <time datetime="2026-09">updated September 2026</time></p>
   <p class="scribble">drawn in SVG, painted with code &middot; set in Computer Modern</p>
 </footer>
 
-<script src="script.js"></script>
+
 </body>
 </html>
