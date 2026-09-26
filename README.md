@@ -1,59 +1,20 @@
-# Ben Nguyen — a field sketchbook
+# Ben Nguyen — personal site (field-sketchbook edition)
 
-[bennguyen.cv](https://bennguyen.cv/) is a static personal website. No build step,
-framework, third-party fonts, or analytics. GitHub Pages serves `main` at the root;
-`CNAME` retains the custom domain and `.nojekyll` disables Jekyll processing.
+Static, no build step: `index.html` + `styles.css` + `script.js` + `fonts/`.
 
-## Local preview
+- Open `index.html` directly, or serve it: `python3 -m http.server` in this folder.
+- Type: Computer Modern (CM Unicode, SIL OFL — see `fonts/OFL.txt`), bundled locally.
+- Every illustration is inline SVG in `index.html` (`<symbol>`s in the `<defs>` block).
+  Washes use the `#wash` / `#wash-big` filters; contours use `#pencil`. Paths carry
+  `pathLength="1"` so the draw-on animation is a single CSS rule (`--draw`), and
+  wash opacity is `--wet`; both are inherited into `<use>` shadow trees from `[data-reveal]`.
+- `?static` in the URL freezes motion and shows everything (used for screenshots).
+- `prefers-reduced-motion`: no drifting, no plane, no paint; everything drawn at once.
+- Previous version (Nujabes watercolor, 2026-07) is archived in `_v1-nujabes/`.
 
-Run `python3 -m http.server 8765 --bind 127.0.0.1` in this directory and open
-`http://127.0.0.1:8765`. `node --check script.js` checks JavaScript syntax.
-`?static` freezes animation for visual inspection.
+Facts on the page come from `../Ben_Nguyen_CV.tex`; no phone number is published.
 
-## Design and behavior
-
-- Paper, pencil, watercolor, and locally bundled Computer Modern type. The font
-  license is in `fonts/OFL.txt`.
-- Inline SVG symbols use the `#wash`, `#wash-big`, and `#pencil` filters. Draw-on
-  progress (`--draw`) and paint opacity (`--wet`) are inherited into symbols.
-- The introduction leads to four project cards, research experience, a question
-  garden, activities, and contact information.
-- Projects and flower notes use native `details`/`summary` disclosures. All
-  content, contact links, and the CV remain available without JavaScript.
-- JavaScript adds project filters, active navigation, email copying, and optional
-  decorative motion. Links into filtered-out projects restore the cards and open
-  the matching story. Escape closes a focused disclosure.
-- The motion button stores only a local preference. System reduced-motion
-  settings always take precedence. Animation work stops while idle or paused.
-- Small screens use a two-row navigation and single-column project gallery.
-  Expanded mobile flower notes span the garden width.
-
-## Content and assets
-
-Facts are grounded in `../Ben_Nguyen_CV.tex` and `../Ben_Nguyen_Resume.tex`
-(September 2026). Keep research stages explicit: CAR-T QC is a proposed,
-unvalidated architecture with a manuscript in preparation; Bughouse is in
-development. Do not imply publication, clinical validation, or public source code
-where none is available. BinIt was a team project.
-
-`assets/Ben_Nguyen_CV.pdf` is a public copy of the current academic CV with the
-phone number removed. Regenerate that public copy after CV changes; do not copy
-the private PDF unchanged. It was compiled with Tectonic and visually checked.
-
-`assets/social-card.svg` is the editable source for the 1200 × 630 sharing image
-`assets/social-card.png`, rendered from the same illustration vocabulary. The
-page includes canonical, Open Graph, Twitter card, and Person metadata. Keep
-`sitemap.xml` and the displayed update date aligned with substantive edits.
-`404.html` returns visitors to the sketchbook using absolute asset paths.
-
-## Verification before publishing
-
-Check project filters; links into filtered cards; native disclosures and Escape;
-copy-email feedback; CV download; saved motion preferences; keyboard focus;
-320, 390, 768, 1024, and 1440px layouts; and the browser console. Check local asset
-and anchor targets, metadata syntax, `git diff --check`, and the PDF visually.
-After pushing, confirm the GitHub Pages deployment matches the new commit and
-that the live homepage, PDF, social preview, sitemap, and custom 404 respond.
-
-The original July 2026 Nujabes edition is kept locally in the ignored
-`_v1-nujabes/` directory.
+September 2026: original layout and interactions retained, with factual corrections,
+a fourth taped-in project for BinIt, and CV download links. The public CV in
+`assets/Ben_Nguyen_CV.pdf` omits the phone number; regenerate a public copy when
+the source CV changes rather than publishing the private PDF unchanged.
