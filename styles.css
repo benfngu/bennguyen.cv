@@ -279,8 +279,11 @@ section > .sec-head { position: relative; z-index: 2; }
   animation: flutter 46s ease-in-out infinite alternate;
 }
 .butterfly svg { display: block; width: 100%; height: auto; overflow: visible; }
-.wing { transform-origin: 0 0; animation: flap .55s ease-in-out infinite alternate; }
-.wing-r { animation-delay: -.55s; }
+.butterfly .wing {
+  /* Both wings fold together around the body at SVG coordinate (0, 0). */
+  transform-box: view-box; transform-origin: 0 0;
+  animation: flap .55s ease-in-out infinite alternate;
+}
 @keyframes flap { from { transform: scaleX(1); } to { transform: scaleX(.35); } }
 @keyframes flutter { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 .birds { position: absolute; top: 14%; left: 44%; width: clamp(90px, 9vw, 150px); z-index: 1; overflow: visible; opacity: .8; }
